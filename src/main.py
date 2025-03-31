@@ -17,6 +17,8 @@ if __name__ == '__main__':
     input_file_path = Path('data/input/') / input_file_name
     data = DataLoader(input_file_path)
     warehouse, wave = data.load_data()
+    #Visualização dos dados de entrada
+    data.view_data(input_file_name, warehouse, wave)
     # TESTE DE RESULTADO PARA INSTANCIA 20(Conforme o exemplo do desafio):
     # (ENQUANTO AINDA NAO HA NENHUM SOLVER)
     # Recuperando pedidos do backlog

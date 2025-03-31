@@ -59,3 +59,20 @@ class DataLoader:
         # Cria o Warehouse com a lista de corredores(Acesses) e Backlog
         warehouse = Warehouse(accesses, backlog)
         return warehouse, wave
+
+    def view_data(self, filename, warehouse: Warehouse, wave: Wave):
+        """
+        Busca os dados instanciados em Warehouse e Wave e imprime na tela.
+        :param filename: Nome do arquivo de entrada.
+        :param warehouse: Objeto Warehouse.
+        :param wave: Objeto Wave.
+        """
+        print(f"Arquivo de entrada: {filename}")
+        print("BACKLOG:")
+        for order in warehouse.get_backlog().get_orders():
+            print(f"Pedido {order.get_id()}: Itens [{', '.join(str(item.get_id()) for item in order.get_items())}]")
+        print("CORREDORES:")
+        for access in warehouse.get_accesses():
+            print(f"Corredor {access.get_id()}: Itens [{', '.join(str(item.get_id()) for item in access.get_items())}]")
+        print(f"Limite inferior: {wave.get_lower_bound()}")
+        print(f"Limite superior: {wave.get_upper_bound()}")
