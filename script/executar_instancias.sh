@@ -18,4 +18,3 @@ python3 ../src/main.py instance_0016.txt
 python3 ../src/main.py instance_0017.txt
 python3 ../src/main.py instance_0018.txt
 python3 ../src/main.py instance_0019.txt
-python3 ../src/main.py instance_0020.txt
