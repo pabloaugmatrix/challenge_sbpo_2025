@@ -9,6 +9,8 @@ class Wave:
     def __init__(self, lower_bound: int, upper_bound: int):
         self.__lower_bound = lower_bound
         self.__upper_bound = upper_bound
+        self.__orders = []  # Inicializa a lista de pedidos
+        self.__visited_accesses = []  # Inicializa a lista de corredores visitados
 
     def get_lower_bound(self) -> int:
         return self.__lower_bound
@@ -27,3 +29,6 @@ class Wave:
 
     def get_visited_accesses(self) -> list[int]:
         return self.__visited_accesses
+
+    def get_orders(self) -> list[Order]:
+        return self.__orders

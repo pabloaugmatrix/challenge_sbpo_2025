@@ -1,14 +1,14 @@
 from src.entities.access.access import Access
-from src.entities.backlog import Backlog
+from src.entities.backlog.backlog import Backlog
 
 
 class Warehouse:
     __accesses: list[Access]
     __backlog: Backlog
 
-    def __init__(self, accesses: list[Access]) -> None:
+    def __init__(self, accesses: list[Access], backlog: Backlog) -> None:
         self.__accesses = accesses
-        self.__backlog = Backlog()
+        self.__backlog = backlog
 
     def get_accesses(self) -> list[Access]:
         return self.__accesses

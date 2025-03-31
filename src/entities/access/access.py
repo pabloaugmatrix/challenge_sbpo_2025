@@ -1,9 +1,7 @@
 from src.entities.item.item import Item
 
-class Access:
-    __id: int
-    __items: list[Item]
 
+class Access:
     def __init__(self, id: int, items: list[Item]):
         self.__items = items
         self.__id = id
