@@ -1,20 +1,33 @@
 from src.entities.order.order import Order
 
+
 class Backlog:
     """
     Representa o backlog de pedidos do galpão.
 
-    Attributos:
+    Atributos:
         orders (list[Order]): lista de pedidos no backlog.
     """
 
     def __init__(self, orders: list[Order]) -> None:
-        self.orders = orders
+        """
+        Inicializa um objeto do tipo Backlog.
+        :param orders: Lista de pedidos no backlog.
+        """
+        self.__orders = orders
 
     def get_orders(self) -> list[Order]:
-        return self.orders
+        """
+        :return: (list[Order]) Lista de pedidos no backlog.
+        """
+        return self.__orders
 
     def get_order(self, order_id: int) -> Order:
-        for order in self.orders:
-            if order.order_id == order_id:
+        """
+        Itera pelos pedidos no backlog e retorna o pedido com o id informado.
+        :param order_id: Id do pedido a ser buscado.
+        :return: (Order) Pedido com o id informado.
+        """
+        for order in self.__orders:
+            if order.get_id() == order_id:
                 return order

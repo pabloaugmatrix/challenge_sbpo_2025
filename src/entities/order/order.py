@@ -1,17 +1,32 @@
-
-
 from src.entities.item.item import Item
 
+
 class Order:
-    __id: int
-    __items: list[Item]
+    """
+    Representa um pedido.
+
+    Atributos:
+        order_id (int): Identificador unico do pedido.
+        items (list[Item]): Lista de itens do pedido.
+    """
 
     def __init__(self, order_id: int, items: list[Item]):
-        self.order_id = order_id
+        """
+        Inicializa um objeto do tipo Order.
+        :param order_id: Identificador unico do pedido.
+        :param items: Lista de itens do pedido.
+        """
+        self.__order_id = order_id
         self.__items = items
 
     def get_id(self) -> int:
-        return self.order_id
+        """
+        :return: (int)Identificador unico do pedido.
+        """
+        return self.__order_id
 
     def get_items(self) -> list[Item]:
+        """
+        :return: (list[Item])Lista de itens do pedido.
+        """
         return self.__items

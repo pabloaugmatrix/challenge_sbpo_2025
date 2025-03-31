@@ -7,44 +7,55 @@ from src.entities.wave.wave import Wave
 
 
 class DataLoader:
-    def __init__(self, filename):
-        self.filename = filename
-        self.warehouse = None
+    """
+    Classe responsavel por manipular os dados de entrada.
+
+    Atributos:
+        filepath (str): Caminho do arquivo de entrada.
+    """
+
+    def __init__(self, filepath):
+        """
+        Inciailiza um objeto do tipo DataLoader.
+        :param filepath: Caminho do arquivo de entrada.
+        """
+        self.__filepath = filepath
 
     def load_data(self):
-        with open(self.filename, 'r') as file:
+        """
+        Abre e itera sobre o arquivo de entrada e retorna os dados devidamente instanciados.
+        :return:
+            warehouse (Warehouse): Instancia do objeto Warehouse.
+            wave (Wave): Instancia do objeto Wave.
+        """
+        with open(self.__filepath, 'r') as file:
             lines = file.readlines()
-
-        # 1. Ler a primeira linha
+        # Lê a primeira linha que contêm respectivamente:
+        # o = quantidade de pedidos
+        # i = quantidade de itens
+        # a = quantidade de corredores
         o, i, a = map(int, lines[0].split())
-
-        # 2. Criar lista de pedidos
+        # Cria lista de pedidos(orders) para o backlog
         orders = []
         line_index = 1
         for order_id in range(o):
             data = list(map(int, lines[line_index].split()))
             line_index += 1
-            k = data[0]
             items = [Item(data[j], data[j + 1]) for j in range(1, len(data), 2)]
             order = Order(order_id, items)
             orders.append(order)
-
-        # 3. Criar Backlog com a lista de pedidos
+        # Cria Backlog com a lista de pedidos (orders)
         backlog = Backlog(orders=orders)
-
-        # 4. Criar lista de corredores (Access)
+        # Cria lista de corredores (Accesses) para o galpão(Warehouse)
         accesses = []
         for access_id in range(a):
             data = list(map(int, lines[line_index].split()))
             line_index += 1
-            l = data[0]
             items = [Item(data[j], data[j + 1]) for j in range(1, len(data), 2)]
             accesses.append(Access(access_id, items))
-
-        # 5. Ler os limites da wave
+        # Lê os limites(upper/lower bound) e cria a Wave
         LB, UB = map(int, lines[line_index].split())
-        wave = Wave( LB, UB)
-
-        # 6. Criar Warehouse e associar backlog e corredores
-        self.warehouse = Warehouse(accesses, backlog)
-        return self.warehouse, wave
+        wave = Wave(LB, UB)
+        # Cria o Warehouse com a lista de corredores(Acesses) e Backlog
+        warehouse = Warehouse(accesses, backlog)
+        return warehouse, wave
