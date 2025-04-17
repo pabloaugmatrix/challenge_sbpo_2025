@@ -67,3 +67,15 @@ class Wave:
         :return:(list[Order]) Lista de pedidos no subconjunto.
         """
         return self.__orders
+
+    def empty_orders(self):
+        """
+        Esvazia lista de pedidos no subconjunto.
+        """
+        self.__orders = []
+
+    def empty_visited_accesses(self):
+        """
+        Esvazia lista de corredores visitados no subconjunto.
+        """
+        self.__visited_accesses = []

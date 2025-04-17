@@ -19,3 +19,4 @@ python3 -m src.main instance_0016.txt
 python3 -m src.main instance_0017.txt
 python3 -m src.main instance_0018.txt
 python3 -m src.main instance_0019.txt
+python3 -m src.main instance_0020.txt

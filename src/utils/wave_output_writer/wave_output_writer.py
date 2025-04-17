@@ -32,4 +32,4 @@ class WaveOutputWriter:
             file.write(f"{len(visited_accesses)}\n")
             # Escreve os índices dos corredores visitados
             for access in visited_accesses:
-                file.write(f"{access}\n")
+                file.write(f"{access.get_id()}\n")

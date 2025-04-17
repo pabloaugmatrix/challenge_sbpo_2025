@@ -30,3 +30,22 @@ class Order:
         :return: (list[Item])Lista de itens do pedido.
         """
         return self.__items
+
+    def get_length(self) -> int:
+        """
+        :return: (int)somatorio das quantidades dos itens do pedido.
+        """
+        len = 0
+        for item in self.__items:
+            len += item.get_item_quantity()
+        return len
+
+    def get_itemid_and_quantity_dict(self) -> dict:
+        """
+        Itera sobre os itens do pedido.
+        :return: (dict) Dicionario (Item ID : Item Quantity).
+        """
+        dict = {}
+        for item in self.__items:
+            dict[item.get_id()] = item.get_item_quantity()
+        return dict
