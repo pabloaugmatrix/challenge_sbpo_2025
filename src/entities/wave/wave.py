@@ -49,6 +49,13 @@ class Wave:
         """
         return len(self.__orders)
 
+    def get_accesses_quantity(self) -> int:
+        """
+        :return: (int) Quantidade de corredores no subconjunto.
+        :return:
+        """
+        return len(self.__visited_accesses)
+
     def add_visited_access(self, access: int):
         """
         Adiciona o id de um corredor visitado ao subconjunto.
