@@ -17,7 +17,7 @@ def __viable_orders_combination(warehouse: Warehouse, wave: Wave):
     return viable_list
 
 
-def __get__better_acess_combination(warehouse: Warehouse, wave: Wave, order_combination: list):
+def __get__better_access_combination(warehouse: Warehouse, wave: Wave, order_combination: list):
     total_demand = Counter()
     for order in order_combination:
         total_demand.update(order.get_itemid_and_quantity_dict())
@@ -27,8 +27,8 @@ def __get__better_acess_combination(warehouse: Warehouse, wave: Wave, order_comb
         access_combination.extend(itertools.combinations(accesses, i))
     for accesses in access_combination:
         total_stock = Counter()
-        for corredor in accesses:
-            total_stock.update(corredor.get_itemid_and_quantity_dict())
+        for access in accesses:
+            total_stock.update(access.get_itemid_and_quantity_dict())
         if all(total_stock[item] >= qtd for item, qtd in total_demand.items()):
             return accesses
     return None
@@ -39,7 +39,7 @@ def brute_force(warehouse: Warehouse, wave: Wave):
     viable_dict = {}
     objective = float('inf')
     for combination in order_combinations:
-        access_combination = __get__better_acess_combination(warehouse, wave, combination)
+        access_combination = __get__better_access_combination(warehouse, wave, combination)
         if access_combination:
             viable_dict[combination] = access_combination
     for orders_tuple, accesses_list in viable_dict.items():
