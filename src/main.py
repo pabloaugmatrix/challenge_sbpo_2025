@@ -4,6 +4,7 @@ from src.utils.benchmark.benchmark import Benchmark
 from src.utils.data_loader.data_loader import DataLoader
 from src.utils.wave_output_writer.wave_output_writer import WaveOutputWriter
 from src.brute_force.brute_force import brute_force
+from src.mockup import result_instance_0020
 
 if __name__ == '__main__':
     """
@@ -25,10 +26,10 @@ if __name__ == '__main__':
     # (ENQUANTO AINDA NAO HA NENHUM SOLVER)
     # wave = build_wave_with_orders_and_accesses(warehouse, wave)
 
-    benchmark = Benchmark(lambda: brute_force(warehouse, wave), "brute_force", input_file_name)
-    benchmark.file_print()
+    # benchmark = Benchmark(lambda: brute_force(warehouse, wave), "brute_force", input_file_name)
+    # benchmark.file_print()
 
-    wave = brute_force(warehouse, wave)
+    wave = result_instance_0020.build_wave_with_orders_and_accesses(warehouse, wave)
     # Gerando o arquivo de saída
     output_writer = WaveOutputWriter(wave)
     output_file_name = 'resultado_' + input_file_name

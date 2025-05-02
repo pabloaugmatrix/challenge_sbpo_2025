@@ -26,6 +26,11 @@ class Warehouse:
         """
         return self.__accesses
 
+    def get_access(self, id: int) -> Access:
+        for access in self.__accesses:
+            if access.get_id() == id:
+                return access
+
     def get_backlog(self) -> Backlog:
         """
         :return:(Backlog) Backlog com os pedidos pendentes.

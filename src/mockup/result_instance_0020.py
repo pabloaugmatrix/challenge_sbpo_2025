@@ -8,5 +8,5 @@ def build_wave_with_orders_and_accesses(warehouse: Warehouse, wave: Wave) -> Wav
         wave.add_order(warehouse.get_backlog().get_order(i))
     # Adicionando os corredores visitados
     for access in [1, 3]:
-        wave.add_visited_access(access)
+        wave.add_visited_access(warehouse.get_access(access))
     return wave
