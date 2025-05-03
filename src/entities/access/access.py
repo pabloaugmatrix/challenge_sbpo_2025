@@ -50,3 +50,9 @@ class Access:
         for item in self.__items:
             dict[item.get_id()] = item.get_item_quantity()
         return dict
+
+    def __str__(self):
+        """
+        :return: Id do corredor.
+        """
+        return self.__id

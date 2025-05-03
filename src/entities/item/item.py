@@ -27,3 +27,9 @@ class Item:
         :return: (int)Quantidade de itens do item.
         """
         return self.__item_quantity
+
+    def __str__(self):
+        """
+        :return: Id do item.
+        """
+        return self.__item_id
