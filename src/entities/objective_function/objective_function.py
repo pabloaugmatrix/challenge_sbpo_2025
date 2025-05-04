@@ -36,9 +36,7 @@ class ObjectiveFunction:
                         list.append(order['id'])
         
         if wave.get_upper_bound() is not None:
-            if not qtd[0] < wave.get_upper_bound():
-                list.pop()
-            return qtd[0] < wave.get_upper_bound()
+            return qtd[0] <= wave.get_upper_bound()
         if wave.get_lower_bound() is not None:
-            return qtd[0] > wave.get_lower_bound()
+            return qtd[0] >= wave.get_lower_bound()
     

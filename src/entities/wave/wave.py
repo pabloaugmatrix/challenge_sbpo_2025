@@ -46,13 +46,6 @@ class Wave:
         """
         self.__orders.append(order)
 
-    def add_order1(self, order: Order):
-        """
-        Adiciona um pedido ao subconjunto.
-        :param order: Pedido a ser adicionado ao subconjunto.
-        """
-        self.__orders = order
-
     def get_orders_quantity(self) -> int:
         """
         :return:(int) Quantidade de pedidos no subconjunto.
