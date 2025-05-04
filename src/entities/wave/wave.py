@@ -95,7 +95,7 @@ class Wave:
         return self.__score
     
     def add_score_wave(self, valor):
-        self.__score += valor
+        self.__score = valor
             
     def get_itensDePedidosAtendidos_wave(self):
         return self.__itensDePedidosAtendidos
@@ -108,3 +108,7 @@ class Wave:
     
     def add_itemsMax(self, valor):
         self.__itemsMax = valor
+
+    def remove_visited_access(self, access):
+        if access in self.__visited_accesses:
+            self.__visited_accesses.remove(access)
