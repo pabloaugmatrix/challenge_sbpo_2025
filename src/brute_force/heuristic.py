@@ -1,5 +1,6 @@
 from copy import deepcopy
 import random
+import cProfile
 from src.entities.objective_function.objective_function import ObjectiveFunction
 from src.entities.warehouse.warehouse import Warehouse
 from src.entities.wave.wave import Wave
@@ -82,6 +83,13 @@ def heuristic(warehouse: Warehouse, wave: Wave):
 
     wave = waveRandom(wave, backlog, listOrder, accesses)
     printWave(wave)
-
+    
+    # profiler = cProfile.Profile()
+    # profiler.enable()
+    
     bestWave = refineWave(wave, accesses, backlog, listOrder)
+    
+    # profiler.disable()
+    # profiler.print_stats(sort='cumtime')
+    
     printWave(bestWave)
