@@ -11,9 +11,13 @@ class ObjectiveFunction:
         para então calcular a função objetivo(corredores / pedidos).
         :return: Valor da função objetivo(corredores / pedidos).
         """
+        # accesses_quantity = self.__wave.get_accesses_quantity()
+        # orders_quantity = self.__wave.get_orders_quantity()
+        # return accesses_quantity / orders_quantity
+
         accesses_quantity = self.__wave.get_accesses_quantity()
-        orders_quantity = self.__wave.get_orders_quantity()
-        return accesses_quantity / orders_quantity
+        orders_quantity = self.__wave.get_itemsMax()
+        return orders_quantity / accesses_quantity
     
     def capacidadeMax(self, itensDePedidosAtendidos, listOrder, list, qtd, wave: Wave):
         temp_itensDePedidosAtendidos = deepcopy(itensDePedidosAtendidos)

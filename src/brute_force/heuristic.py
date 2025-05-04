@@ -1,4 +1,7 @@
+from copy import deepcopy
+import itertools
 from os import access
+import random
 from statistics import quantiles
 from src.entities.objective_function.objective_function import ObjectiveFunction
 from src.entities.warehouse.warehouse import Warehouse
@@ -22,61 +25,11 @@ def getOrder(backlog):
         }
         listOrder.append(pedido)
     
-    print(f'Order:\n {listOrder}\n')
     return listOrder
-
-def getWaveGulosa(warehouse: Warehouse, wave: Wave):
-    backlog = warehouse.get_backlog().get_orders()
-    accesses = warehouse.get_accesses()
-    accesses = sortAccess(accesses)
-    listOrder = getOrder(backlog)
-
-    list = []
-    qtd = [0]
-    orderVisited = []
-    objective_calculator = ObjectiveFunction(wave)
-
-    for access in accesses:
-        temp_itensDePedidosAtendidos = wave.get_itensDePedidosAtendidos_wave().copy()
-        items = access.get_items()
-
-        for item in items:
-            item_id = item.get_id()
-            item_quantidade = item.get_item_quantity()
-            temp_itensDePedidosAtendidos[item_id] = temp_itensDePedidosAtendidos.get(item_id, 0) + item_quantidade
-            
-            
-        if not objective_calculator.capacidadeMax(temp_itensDePedidosAtendidos, listOrder, list, qtd, wave):
-            break
-
-        for order in backlog:
-            for i in range(0, len(list)):
-                if order.get_id() == list[i] and order.get_id() not in orderVisited:
-                    orderVisited.append(order.get_id())
-                    wave.add_order(order)
-                    
-
-        wave.add_itensDePedidosAtendidos_wave(temp_itensDePedidosAtendidos)
-        wave.add_visited_access(access)
-        
-    wave.add_score_wave(objective_calculator.calculate_objective())
-
-    # for access in wave.get_visited_accesses():
-    #     print(access.get_id())    
-    # print()
-    # for access in wave.get_orders():
-    #     print(access.get_id())    
-    # print(wave.get_score_wave()) 
-
-    # for access in wave.get_visited_accesses():
-    #     print(wave.get_accesses_quantity())    
-    # for access in wave.get_orders():
-    #     print(wave.get_orders_quantity())    
-    # print(wave.get_score_wave())     
 
 def getAccessList(warehouse):
     corredores = []
-    access = warehouse.get_accesses()
+    access = deepcopy(warehouse.get_accesses())
 
     for acess in access:
         qtd = 0
@@ -98,7 +51,6 @@ def getAccessList(warehouse):
         corredor['maxItem'] = qtd
         corredores.append(corredor)
     
-    print(corredores)
     return corredores
 
 def getOrderList(warehouse: Warehouse):
@@ -112,18 +64,81 @@ def getOrderList(warehouse: Warehouse):
         }
         orderList.append(order)
 
-    print(orderList)
     return orderList
 
+def getWave(accesses, backlog, listOrder, wave: Wave):
+    list = []
+    qtd = [0]
+    orderVisited = []
+    objective_calculator = ObjectiveFunction(wave)
 
+    for access in accesses:
+        if access.get_id() in wave.get_visited_accesses():
+            continue
+
+        temp_itensDePedidosAtendidos = wave.get_itensDePedidosAtendidos_wave().copy()
+        items = access.get_items()
+
+        for item in items:
+            item_id = item.get_id()
+            item_quantidade = item.get_item_quantity()
+            temp_itensDePedidosAtendidos[item_id] = temp_itensDePedidosAtendidos.get(item_id, 0) + item_quantidade
+            
+            
+        if not objective_calculator.capacidadeMax(temp_itensDePedidosAtendidos, listOrder, list, qtd, wave):
+            print(qtd)
+            break
+
+        for order in backlog:
+            for i in range(0, len(list)):
+                if order.get_id() == list[i] and order.get_id() not in orderVisited:
+                    orderVisited.append(order.get_id())
+                    wave.add_order(order)
+                            
+        wave.add_itensDePedidosAtendidos_wave(temp_itensDePedidosAtendidos)
+        wave.add_visited_access(access)
+        wave.add_itemsMax(qtd[0])
+        qtd[0] = 0
+    print(wave.get_itemsMax())
+        
+    wave.add_score_wave(objective_calculator.calculate_objective())
+
+    for access in wave.get_visited_accesses():
+        print(f'Access: {access.get_id()}')    
+    print()
+    for orders in wave.get_orders():
+        print(f'Orders: {orders.get_id()}')    
+    print(f'Score: {wave.get_score_wave()}') 
+
+    print(f'Corredor visitado: {wave.get_accesses_quantity()}')   
+    print(f'Pedido coletado: {wave.get_orders_quantity()}')    
+    print(f'Score: {wave.get_score_wave()}')     
+
+
+def waveGulosa(warehouse: Warehouse, wave: Wave):
+    backlog = warehouse.get_backlog().get_orders()
+    listOrder = getOrder(backlog)
+    
+    accesses = deepcopy(warehouse.get_accesses())
+    accesses = sortAccess(accesses)
+
+    getWave(accesses, backlog, listOrder, wave)
+
+    
 def refineWave():
     pass
 
-def getWaveRandom():
-    pass
+def waveRandom(warehouse: Warehouse, wave: Wave):
+    backlog = warehouse.get_backlog().get_orders()
+    listOrder = getOrder(backlog)
+
+    accesses = deepcopy(warehouse.get_accesses())
+    random.shuffle(accesses)
+
+    getWave(accesses, backlog, listOrder, wave)
 
 def heuristic(warehouse: Warehouse, wave: Wave):
-    getWaveGulosa(warehouse, wave)
-    getWaveRandom()
+    # waveGulosa(warehouse, wave)
+    waveRandom(warehouse, wave)
 
     refineWave()

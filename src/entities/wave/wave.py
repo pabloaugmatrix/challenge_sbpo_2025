@@ -26,6 +26,7 @@ class Wave:
         self.__orders = []
         self.__visited_accesses = []
         self.__score = 0
+        self.__itemsMax = 0
 
     def get_lower_bound(self) -> int:
         """
@@ -101,3 +102,9 @@ class Wave:
     
     def add_itensDePedidosAtendidos_wave(self, itensDePedidosAtendidos):
         self.__itensDePedidosAtendidos = itensDePedidosAtendidos
+
+    def get_itemsMax(self):
+        return self.__itemsMax
+    
+    def add_itemsMax(self, valor):
+        self.__itemsMax = valor
