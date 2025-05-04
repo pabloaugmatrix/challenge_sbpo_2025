@@ -11,6 +11,7 @@ class Wave:
         upper_bound (int): Limite superior do subconjunto de pedidos.
         orders (list[Order]): Lista de pedidos no subconjunto.
         visited_accesses (list[int]): Lista de corredores visitados no subconjunto.
+        score (int): Score de qualidade da Wave.
     """
 
     def __init__(self, lower_bound: int, upper_bound: int):
@@ -21,8 +22,10 @@ class Wave:
         """
         self.__lower_bound = lower_bound
         self.__upper_bound = upper_bound
+        self.__itensDePedidosAtendidos = {}
         self.__orders = []
         self.__visited_accesses = []
+        self.__score = 0
 
     def get_lower_bound(self) -> int:
         """
@@ -42,6 +45,13 @@ class Wave:
         :param order: Pedido a ser adicionado ao subconjunto.
         """
         self.__orders.append(order)
+
+    def add_order1(self, order: Order):
+        """
+        Adiciona um pedido ao subconjunto.
+        :param order: Pedido a ser adicionado ao subconjunto.
+        """
+        self.__orders = order
 
     def get_orders_quantity(self) -> int:
         """
@@ -86,3 +96,15 @@ class Wave:
         Esvazia lista de corredores visitados no subconjunto.
         """
         self.__visited_accesses = []
+    
+    def get_score_wave(self):
+        return self.__score
+    
+    def add_score_wave(self, valor):
+        self.__score += valor
+            
+    def get_itensDePedidosAtendidos_wave(self):
+        return self.__itensDePedidosAtendidos
+    
+    def add_itensDePedidosAtendidos_wave(self, itensDePedidosAtendidos):
+        self.__itensDePedidosAtendidos = itensDePedidosAtendidos

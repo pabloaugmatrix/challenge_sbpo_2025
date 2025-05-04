@@ -4,6 +4,7 @@ from src.utils.benchmark.benchmark import Benchmark
 from src.utils.data_loader.data_loader import DataLoader
 from src.utils.wave_output_writer.wave_output_writer import WaveOutputWriter
 from src.brute_force.brute_force import brute_force
+from src.brute_force.heuristic import heuristic
 from src.mockup import result_instance_0020
 
 if __name__ == '__main__':
@@ -28,6 +29,8 @@ if __name__ == '__main__':
 
     # benchmark = Benchmark(lambda: brute_force(warehouse, wave), "brute_force", input_file_name)
     # benchmark.file_print()
+
+    heuristic(warehouse, wave)
 
     wave = result_instance_0020.build_wave_with_orders_and_accesses(warehouse, wave)
     # Gerando o arquivo de saída

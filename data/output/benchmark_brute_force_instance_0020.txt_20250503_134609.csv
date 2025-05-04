@@ -1,0 +1,2 @@
+method,instance,timestamp,average_time_seconds,executions
+brute_force,instance_0020.txt,20250503_134609,0.001148,10
