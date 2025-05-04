@@ -22,7 +22,7 @@ def getOrder(backlog):
         }
         listOrder.append(pedido)
     
-    print(listOrder)
+    print(f'Order:\n {listOrder}\n')
     return listOrder
 
 def getWaveGulosa(warehouse: Warehouse, wave: Wave):
@@ -47,11 +47,6 @@ def getWaveGulosa(warehouse: Warehouse, wave: Wave):
             
             
         if not objective_calculator.capacidadeMax(temp_itensDePedidosAtendidos, listOrder, list, qtd, wave):
-            for order in backlog:
-                for i in range(0, len(list)):
-                    if order.get_id() == list[i] and order.get_id() not in orderVisited:
-                        orderVisited.append(order.get_id())
-                        wave.add_order(order)
             break
 
         for order in backlog:
@@ -66,11 +61,18 @@ def getWaveGulosa(warehouse: Warehouse, wave: Wave):
         
     wave.add_score_wave(objective_calculator.calculate_objective())
 
-    for access in wave.get_visited_accesses():
-        print(wave.get_accesses_quantity())    
-    for access in wave.get_orders():
-        print(wave.get_orders_quantity())    
-    print(wave.get_score_wave())    
+    # for access in wave.get_visited_accesses():
+    #     print(access.get_id())    
+    # print()
+    # for access in wave.get_orders():
+    #     print(access.get_id())    
+    # print(wave.get_score_wave()) 
+
+    # for access in wave.get_visited_accesses():
+    #     print(wave.get_accesses_quantity())    
+    # for access in wave.get_orders():
+    #     print(wave.get_orders_quantity())    
+    # print(wave.get_score_wave())     
 
 def getAccessList(warehouse):
     corredores = []

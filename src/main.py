@@ -32,7 +32,7 @@ if __name__ == '__main__':
 
     heuristic(warehouse, wave)
 
-    wave = result_instance_0020.build_wave_with_orders_and_accesses(warehouse, wave)
+    # wave = result_instance_0020.build_wave_with_orders_and_accesses(warehouse, wave)
     # Gerando o arquivo de saída
     output_writer = WaveOutputWriter(wave)
     output_file_name = 'resultado_' + input_file_name
