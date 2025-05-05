@@ -68,7 +68,7 @@ class Wave:
         """
         self.__visited_accesses.append(access)
         self.__visited_ids.add(access.get_id())
-    
+
     def get_visited_ids(self):
         return self.__visited_ids
 
@@ -95,26 +95,25 @@ class Wave:
         Esvazia lista de corredores visitados no subconjunto.
         """
         self.__visited_accesses = []
-    
+
     def get_score_wave(self):
         return self.__score
-    
+
     def add_score_wave(self, valor):
         self.__score = valor
-            
+
     def get_itensDePedidosAtendidos_wave(self):
         return self.__itensDePedidosAtendidos
-    
+
     def add_itensDePedidosAtendidos_wave(self, itensDePedidosAtendidos):
         self.__itensDePedidosAtendidos = itensDePedidosAtendidos
 
     def get_itemsMax(self):
         return self.__itemsMax
-    
+
     def add_itemsMax(self, valor):
         self.__itemsMax = valor
 
     def remove_visited_access(self, access):
         if access in self.__visited_accesses:
             self.__visited_accesses.remove(access)
-            
