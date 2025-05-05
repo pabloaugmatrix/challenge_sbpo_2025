@@ -11,11 +11,9 @@ class ObjectiveFunction:
         para então calcular a função objetivo(corredores / pedidos).
         :return: Valor da função objetivo(corredores / pedidos).
         """
-        # accesses_quantity = self.__wave.get_accesses_quantity()
-        # orders_quantity = self.__wave.get_orders_quantity()
-        # return accesses_quantity / orders_quantity
-
         accesses_quantity = self.__wave.get_accesses_quantity()
+        if accesses_quantity == 0:
+            raise ZeroDivisionError
         orders_quantity = self.__wave.get_itemsMax()
         return orders_quantity / accesses_quantity
 

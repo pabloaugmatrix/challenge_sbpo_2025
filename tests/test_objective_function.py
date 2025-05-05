@@ -26,17 +26,18 @@ class TestObjectiveFunction(unittest.TestCase):
         self.wave.add_visited_access(self.access2)
         self.wave.add_order(self.order1)
         self.wave.add_order(self.order2)
-        self.assertEqual(self.objective_function.calculate_objective(), 2 / 2)
+        expected_result = self.wave.get_itemsMax()/self.wave.get_accesses_quantity()
+        self.assertEqual(self.objective_function.calculate_objective(), expected_result)
 
     def test_calculate_objective_when_no_orders(self):
         self.wave.add_visited_access(self.access1)
-        with self.assertRaises(ZeroDivisionError):
-            self.objective_function.calculate_objective()
+        self.assertEqual(self.objective_function.calculate_objective(), 0 / 1)
 
     def test_calculate_objective_with_no_accesses(self):
         self.wave.add_order(self.order1)
         self.wave.add_order(self.order2)
-        self.assertEqual(self.objective_function.calculate_objective(), 0 / 2)
+        with self.assertRaises(ZeroDivisionError):
+            self.objective_function.calculate_objective()
 
     def test_calculate_objective_with_multiple_orders_and_accesses(self):
         self.wave.add_visited_access(self.access1)
@@ -45,4 +46,5 @@ class TestObjectiveFunction(unittest.TestCase):
         self.wave.add_order(self.order1)
         self.wave.add_order(self.order2)
         self.wave.add_order(self.order3)
-        self.assertAlmostEqual(self.objective_function.calculate_objective(), 3 / 3)
+        expected_result = self.wave.get_itemsMax() / self.wave.get_accesses_quantity()
+        self.assertAlmostEqual(self.objective_function.calculate_objective(), expected_result)
