@@ -1,7 +1,6 @@
 from src.entities.wave.wave import Wave
 from copy import deepcopy
 
-
 class ObjectiveFunction:
     def __init__(self, wave: Wave):
         self.__wave = wave
