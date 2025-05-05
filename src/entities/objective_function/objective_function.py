@@ -13,4 +13,6 @@ class ObjectiveFunction:
         """
         accesses_quantity = self.__wave.get_accesses_quantity()
         orders_quantity = self.__wave.get_orders_quantity()
+        if orders_quantity == 0:
+            raise ZeroDivisionError
         return accesses_quantity / orders_quantity

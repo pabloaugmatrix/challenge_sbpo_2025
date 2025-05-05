@@ -31,3 +31,5 @@ class Backlog:
         for order in self.__orders:
             if order.get_id() == order_id:
                 return order
+        raise ValueError(f"Pedido com ID {order_id} não encontrado.")
+
