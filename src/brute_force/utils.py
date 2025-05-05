@@ -47,7 +47,7 @@ def getAccessList(warehouse):
     
     return corredores
 
-def printWave(wave: Wave):
+def printWave(wave: Wave, name):
     orderList = []
     accessList = []
 
@@ -59,10 +59,10 @@ def printWave(wave: Wave):
     orderList.sort()
     accessList.sort()
     print()
-    print('-'*8+' Resultado '+'-'*8)
+    print('-'*8+' Resultado '+ name + '-'*8)
     print(f"Access: {accessList}")
     print(f"Orders: {orderList}")
     print(f'Score: {wave.get_score_wave()}') 
-    print(f'Corredor visitado: {wave.get_accesses_quantity()}')   
-    print(f'Pedido coletado: {wave.get_orders_quantity()}')    
+    print(f'Quantidade de corredores visitados: {wave.get_accesses_quantity()}')   
+    print(f'Quantidade de pedidos coletados: {wave.get_orders_quantity()}')    
     print(f'Score: {wave.get_score_wave()}') 
