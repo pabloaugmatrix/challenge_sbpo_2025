@@ -31,6 +31,9 @@ class Access:
         :return: (list[Item])Lista de itens que o corredor tem acesso.
         """
         return self.__items
+    
+    def get_length_max_item(self) -> int:
+        return len(self.__items)
 
     def get_length(self) -> int:
         """
