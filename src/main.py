@@ -30,7 +30,7 @@ if __name__ == '__main__':
     # benchmark = Benchmark(lambda: brute_force(warehouse, wave), "brute_force", input_file_name)
     # benchmark.file_print()
 
-    heuristic(warehouse, wave)
+    heuristic(warehouse, wave, input_file_name)
 
     # wave = result_instance_0020.build_wave_with_orders_and_accesses(warehouse, wave)
     # Gerando o arquivo de saída

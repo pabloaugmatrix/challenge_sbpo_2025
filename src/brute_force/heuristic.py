@@ -3,6 +3,7 @@ import random
 import cProfile
 from src.entities.objective_function.objective_function import ObjectiveFunction
 from src.entities.warehouse.warehouse import Warehouse
+from src.utils.benchmark.benchmark import Benchmark
 from src.entities.wave.wave import Wave
 from src.brute_force.utils import *
 
@@ -76,20 +77,26 @@ def waveRandom(wave: Wave, backlog, listOrder, accesses):
     random.shuffle(accesses)
     return getWave(accesses, backlog, listOrder, wave)
 
-def heuristic(warehouse: Warehouse, wave: Wave):
+def heuristic(warehouse: Warehouse, wave: Wave, input_file_name):
     backlog = warehouse.get_backlog().get_orders()
     listOrder = getOrderList(backlog)
-    accesses = deepcopy(warehouse.get_accesses())
+    accesses = deepcopy(warehouse.get_accesses())    
 
-    wave = waveRandom(wave, backlog, listOrder, accesses)
-    printWave(wave)
+    benchmark = Benchmark(lambda: waveRandom(wave, backlog, listOrder, accesses), "waveRandom", input_file_name)
+    benchmark.file_print()
+    printWave(wave, 'Aleatoria ')
+
+    # benchmark = Benchmark(lambda: waveGulosa(wave, backlog, listOrder, accesses), "waveGulosa", input_file_name)
+    # benchmark.file_print()
+    # printWave(wave, 'Gulosa ')
     
     # profiler = cProfile.Profile()
     # profiler.enable()
+    # benchmark = Benchmark(lambda: refineWave(wave, accesses, backlog, listOrder), "refineWave", input_file_name)
+    # benchmark.file_print()
+    # bestWave = refineWave(wave, accesses, backlog, listOrder)
     
-    bestWave = refineWave(wave, accesses, backlog, listOrder)
+    # # profiler.disable()
+    # # profiler.print_stats(sort='cumtime')
     
-    # profiler.disable()
-    # profiler.print_stats(sort='cumtime')
-    
-    printWave(bestWave)
+    # printWave(bestWave, 'Refinamento ')
