@@ -27,6 +27,11 @@ class Warehouse:
         return self.__accesses
 
     def get_access(self, id: int) -> Access:
+        """
+        Itera sobre os corredores e retorna o corredor com o id informado.
+        :param id: Id do corredor.
+        :return: corredor com o id informado.
+        """
         for access in self.__accesses:
             if access.get_id() == id:
                 return access

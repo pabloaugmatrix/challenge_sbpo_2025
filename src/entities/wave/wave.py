@@ -100,6 +100,10 @@ class Wave:
         return self.__score
 
     def add_score_wave(self, valor):
+        """
+        Atribui um valor ao atributo score, referente ao calculo da função objetivo
+        :param valor: valor a ser atribuido ao atributo score.
+        """
         self.__score = valor
 
     def get_itensDePedidosAtendidos_wave(self):
