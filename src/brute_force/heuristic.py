@@ -26,7 +26,7 @@ def process_accesses(wave: Wave, accesses, backlog, listOrder):
             break
 
         for order in backlog:
-            if order.get_id() in list_set and order.get_id() not in orderVisited:
+            if order.get_id() not in list_set and order.get_id() not in orderVisited and order not in wave.get_orders():
                 orderVisited.add(order.get_id())
                 wave.add_order(order)
 
@@ -82,21 +82,21 @@ def heuristic(warehouse: Warehouse, wave: Wave, input_file_name):
     listOrder = getOrderList(backlog)
     accesses = deepcopy(warehouse.get_accesses())    
 
-    benchmark = Benchmark(lambda: waveRandom(wave, backlog, listOrder, accesses), "waveRandom", input_file_name)
-    benchmark.file_print()
-    printWave(wave, 'Aleatoria ')
-
-    # benchmark = Benchmark(lambda: waveGulosa(wave, backlog, listOrder, accesses), "waveGulosa", input_file_name)
+    # benchmark = Benchmark(lambda: waveRandom(wave, backlog, listOrder, accesses), "waveRandom", input_file_name)
     # benchmark.file_print()
-    # printWave(wave, 'Gulosa ')
+    # printWave(wave, 'Aleatoria ')
+
+    benchmark = Benchmark(lambda: waveGulosa(wave, backlog, listOrder, accesses), "waveGulosa", input_file_name)
+    benchmark.file_print()
+    printWave(wave, 'Gulosa ')
     
     # profiler = cProfile.Profile()
     # profiler.enable()
-    # benchmark = Benchmark(lambda: refineWave(wave, accesses, backlog, listOrder), "refineWave", input_file_name)
-    # benchmark.file_print()
-    # bestWave = refineWave(wave, accesses, backlog, listOrder)
+    benchmark = Benchmark(lambda: refineWave(wave, accesses, backlog, listOrder), "refineWave", input_file_name)
+    benchmark.file_print()
+    bestWave = refineWave(wave, accesses, backlog, listOrder)
     
     # # profiler.disable()
     # # profiler.print_stats(sort='cumtime')
     
-    # printWave(bestWave, 'Refinamento ')
+    printWave(bestWave, 'Refinamento ')
